@@ -1,24 +1,34 @@
+//Funcion para manejar errores
 var createError = require('http-errors');
+//Importa el framework express
 var express = require('express');
+//Importa modulos para manejar rutas
 var path = require('path');
+//Importa modulos para manejar coojkies
 var cookieParser = require('cookie-parser');
+//Importa modulos para manejar logs
 var logger = require('morgan');
 
+//importar las rutas de la aplicacion
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+//Crear la aplicacion express
 var app = express();
 
-// view engine setup
+// Configurar el motor de vistas
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+//COnfigurar moddlewares de la aplicacion
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+//Configurar la carpeta publica para servir archivos estaticos
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Registrar las rutas de la aplicacion
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
