@@ -9,7 +9,7 @@ import app from '../app.js'
 import createDebug from 'debug'
 import http from 'node:http'
 //Creacion del objeto debug
-const debug = createDebug('dwssr1-2026:server')
+const debug = createDebug('dwsr-2026-b:server')
 
 /**
  * Get port from environment and store in Express.

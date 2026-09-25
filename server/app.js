@@ -8,9 +8,15 @@ import path from 'node:path'
 import cookieParser from 'cookie-parser'
 //Importar modulos para el manejo de logs
 import logger from 'morgan'
+import createDebug from 'debug' //☝️
+//importando bliblioteca de debug
 //Import para crear Dirname
 import { fileURLToPath } from 'node:url'
 import { dirname } from 'node:path';
+
+//Creacion del objeto debug
+const debug = createDebug('dwsr-2026-b:server')//☝️
+
 
 //Creando la variable 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +28,7 @@ import usersRouter from './routes/users.js'
 
 
 //Crea la aplicacion express
+debug("Creado backend")
 var app = express();
 
 //Configura el motor de vistas 
@@ -33,9 +40,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+debug("Creando servidor de Archivos Estaticos");
 //configura la carpeta de archivos estaticos
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+debug("Registrando rutas");
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
