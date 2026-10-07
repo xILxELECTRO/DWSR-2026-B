@@ -12,7 +12,8 @@ import createDebug from 'debug' //☝️
 //importando bliblioteca de debug
 //Import para crear Dirname
 import { fileURLToPath } from 'node:url'
-import { dirname } from 'node:path';
+
+
 //Importando el template engine Handlebars
 import hbs from 'hbs';
 
@@ -24,7 +25,7 @@ const debug = createDebug('dwsr-2026-b:server')//☝️
 
 //Creando la variable 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 //Importar las rutas de la aplicacion
 import indexRouter from '#routes/index.js';

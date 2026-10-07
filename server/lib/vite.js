@@ -29,7 +29,7 @@ export function vitAssets() {
   }
 //EN produccion leemos el manifest
 //y generamos las etiquetas finales de producción
-const manifest = path.join(__dirname, '..','..','dist','vite','manifest.json');
+const manifestPath = path.join(__dirname, '..','..','dist','vite','manifest.json');
 //si no existe el manifest
 if (!fs.existsSync(manifestPath)) {
     console.error('Vite manifest not found. Run `npm run build`.');
