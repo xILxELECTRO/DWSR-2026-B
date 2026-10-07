@@ -3,6 +3,12 @@ import {defineConfig} from 'vite';
 //Importando un admin de rutas
 import { resolve } from 'node:path';
 
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 export default defineConfig({
     //Director de Raiz de los archivos fuente del front-end
     root: 'src',
@@ -24,7 +30,7 @@ export default defineConfig({
         //Opciones de empaquetado
         rollupOptions: {
             input: {
-                main: resolve(__dirname, 'src/main.js'),
+                main: resolve(__dirname,'src/main.js'),
             }
         }
     },
