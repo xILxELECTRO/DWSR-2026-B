@@ -29,7 +29,7 @@ export function vitAssets() {
   }
 //EN produccion leemos el manifest
 //y generamos las etiquetas finales de producción
-const manifestPath = path.join(__dirname, '..','..','dist','vite','manifest.json');
+const manifestPath = path.join(__dirname, '..','..','dist','.vite','manifest.json');
 //si no existe el manifest
 if (!fs.existsSync(manifestPath)) {
     console.error('Vite manifest not found. Run `npm run build`.');
@@ -41,7 +41,7 @@ if (!fs.existsSync(manifestPath)) {
   */
   const manifestData = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   //obteniendo la ruta del punto de entrada del front-end
-  const mainEntry = mainfest['main.js']; 
+  const mainEntry = manifestData['main.js'];
   //Guardar el main.js
   if(!mainEntry){
      console.warn('Archivo main.js no esta disponible en el manifiesto de vite');
@@ -49,13 +49,12 @@ if (!fs.existsSync(manifestPath)) {
   }
   let tags = ''
   if(mainEntry.css){
-    mainEntry.css.forEach(cssFiles => {
-        tags += `<link rel="stylesheet" href="/
-        ${cssFile}">\n`
+    mainEntry.css.forEach(cssFile => {
+        tags += `<link rel="stylesheet" href="/${cssFile}">\n`
     });
   } 
   //js files
-  tags += `<script type="module" src="/${mainEntry.file}"defer>
+  tags += `<script type="module" src="/${mainEntry.file}" defer>
   </script>`;
 
   return tags;
