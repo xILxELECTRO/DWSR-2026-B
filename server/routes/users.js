@@ -3,7 +3,7 @@ import express from 'express';
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, _next) {
   res.send('<h1> style:"red"> LISTA DE AMIGOS Y EXES<h1>');
 });
 

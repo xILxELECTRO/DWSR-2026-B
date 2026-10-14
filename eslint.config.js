@@ -19,6 +19,9 @@ export default defineConfig([
   globals: {
      ...globals.node
     }
+  },
+  rules: {
+    "no-unused-vars": ["error", { argsIgnorePattern: "^_" }]
   }
 },
 //2.1) cofig de vite
@@ -32,6 +35,9 @@ export default defineConfig([
   globals: {
      ...globals.node
     }
+  },
+  rules:{
+    "no-unused-vars": ["error", {"argsIgnorePattern": "^_"}]
   }
 },
  
