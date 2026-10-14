@@ -2,6 +2,7 @@
 import {defineConfig} from 'vite';
 //Importando un admin de rutas
 import { resolve } from 'node:path';
+import tailwindcss from '@tailwindcss/vite'
 
 import { fileURLToPath } from 'node:url'
 import { dirname } from 'node:path';
@@ -13,6 +14,8 @@ export default defineConfig({
     //Director de Raiz de los archivos fuente del front-end
     root: 'src',
     //Configurar un servidor de desarrollo
+plugins: [tailwindcss()],
+
     server: {
         //Puerto de escucha
         port: 5173,
