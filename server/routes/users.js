@@ -1,10 +1,11 @@
 //const express = require('express');
 import express from 'express';
-const router = express.Router();
+
+const usersRouter = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, _next) {
-  res.send('<h1> style:"red"> LISTA DE AMIGOS Y EXES<h1>');
+usersRouter.get('/', (req, res, _next) => {
+  res.send('<h1 style="color:red"> LISTA DE AMIGOS Y EXES</h1>');
 });
 
-export default router;
+export default usersRouter;

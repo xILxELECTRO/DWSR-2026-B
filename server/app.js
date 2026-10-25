@@ -1,41 +1,38 @@
-//Funcion para manejar errores en la aplicacion 
-import createError from 'http-errors'
+//Funcion para manejar errores en la aplicacion
+import createError from 'http-errors';
 //Importar el framework express
-import express from 'express'
+import express from 'express';
 //Imprtar modulos para el manejo de rutas
-import path from 'node:path'
-//Importar modulos para el manejo de cookies 
-import cookieParser from 'cookie-parser'
+import path from 'node:path';
+//Importar modulos para el manejo de cookies
+import cookieParser from 'cookie-parser';
 //Importar modulos para el manejo de logs
-import logger from 'morgan'
-import createDebug from 'debug' //☝️
+import logger from 'morgan';
+import createDebug from 'debug'; //☝️
 //importando bliblioteca de debug
 //Import para crear Dirname
-import { fileURLToPath } from 'node:url'
-
+import { fileURLToPath } from 'node:url';
 
 //Importando el template engine Handlebars
 import hbs from 'hbs';
 
-import { registerViteHelper } from './lib/vite.js'; 
-
-//Creacion del objeto debug
-const debug = createDebug('dwsr-2026-b:server')//☝️
-
-
-//Creando la variable 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 //Importar las rutas de la aplicacion
 import indexRouter from '#routes/index.js';
 import usersRouter from '#routes/users.js';
+import { registerViteHelper } from './lib/vite.js';
 
+//Creacion del objeto debug
 
+const debug = createDebug('dwsr-2026-b:server'); //☝️
 
-//Crea la aplicacion express
-debug("Creado backend")
-var app = express();
+//Creando la variable
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+//Importar las rutas de la aplicacion
+debug('Creado backend');
+const app = express();
 
 //Configura el motor de vistas con hbs
 app.set('views', path.join(__dirname, 'views'));
@@ -49,29 +46,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //Archivos estaticos para produccion
-if(process.env.NODE_ENV == 'production'){
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '..', 'dist')));
 }
 
-debug("Creando servidor de Archivos Estaticos");
+debug('Creando servidor de Archivos Estaticos');
 //configura la carpeta de archivos estaticos
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-debug("Registrando rutas");
+debug('Registrando rutas');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, _next) {
+// error =>
+app.use((err, req, res, _next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');

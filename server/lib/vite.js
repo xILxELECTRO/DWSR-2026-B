@@ -1,12 +1,10 @@
 //Bibliotea file stream
-import fs from 'node:fs'
-//Biblioteca de rutas
-import path from 'node:path' 
-import { fileURLToPath } from 'node:url'
-import { dirname } from 'node:path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 //creando la variables de rutas
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 /**
  * Helper para handlebars que genera las etiquetas de vite
  * EnDESARROLLO: Conecta al servidor  de desarrollo de vite
@@ -25,34 +23,34 @@ export function vitAssets() {
     //de Desarrollo de Vite
     return `
       <script type="module" src="${viteDevServer}/@vite/client"></script>
-      <script type="module" src="${viteDevServer}/main.js"></script>`;      
+      <script type="module" src="${viteDevServer}/main.js"></script>`;
   }
-//EN produccion leemos el manifest
-//y generamos las etiquetas finales de producción
-const manifestPath = path.join(__dirname, '..','..','dist','.vite','manifest.json');
-//si no existe el manifest
-if (!fs.existsSync(manifestPath)) {
-    console.error('Vite manifest not found. Run `npm run build`.');
+  //EN produccion leemos el manifest
+  //y generamos las etiquetas finales de producción
+  const manifestPath = path.join(__dirname, '..', '..', 'dist', '.vite', 'manifest.json');
+  //si no existe el manifest
+  if (!fs.existsSync(manifestPath)) {
+    process.stderr.write('Vite manifest not found. Run `npm run build`.\n');
     return '';
   }
   /*leyendo y parseando a JSEN el archivo
-  *de manifiesto que genera vit en la complilacion
-  *de os archivos de front-end
-  */
+   *de manifiesto que genera vit en la complilacion
+   *de os archivos de front-end
+   */
   const manifestData = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   //obteniendo la ruta del punto de entrada del front-end
   const mainEntry = manifestData['main.js'];
   //Guardar el main.js
-  if(!mainEntry){
-     console.warn('Archivo main.js no esta disponible en el manifiesto de vite');
-     return ''
+  if (!mainEntry) {
+    process.stderr.write('Archivo main.js no esta disponible en el manifiesto de vite\n');
+    return '';
   }
-  let tags = ''
-  if(mainEntry.css){
-    mainEntry.css.forEach(cssFile => {
-        tags += `<link rel="stylesheet" href="/${cssFile}">\n`
+  let tags = '';
+  if (mainEntry.css) {
+    mainEntry.css.forEach((cssFile) => {
+      tags += `<link rel="stylesheet" href="/${cssFile}">\n`;
     });
-  } 
+  }
   //js files
   tags += `<script type="module" src="/${mainEntry.file}" defer>
   </script>`;
@@ -63,9 +61,6 @@ if (!fs.existsSync(manifestPath)) {
 /*
 funcion registradora del Helper de Handlebars
 */
-export function registerViteHelper(hbs){
-  hbs.registerHelper('viteAssets',() => {
- //sanitizando la salida del helper
-     return new hbs.SafeString(vitAssets())
-  })
+export function registerViteHelper(hbs) {
+  hbs.registerHelper('viteAssets', () => new hbs.SafeString(vitAssets()));
 }
