@@ -7,7 +7,7 @@ import path from 'node:path';
 //Importar modulos para el manejo de cookies
 import cookieParser from 'cookie-parser';
 //Importar modulos para el manejo de logs
-import logger from 'morgan';
+import morgan from 'morgan';
 import createDebug from 'debug'; //☝️
 //importando bliblioteca de debug
 //Import para crear Dirname
@@ -15,7 +15,6 @@ import { fileURLToPath } from 'node:url';
 
 //Importando el template engine Handlebars
 import hbs from 'hbs';
-
 
 //Importar las rutas de la aplicacion
 import indexRouter from '#routes/index.js';
@@ -40,7 +39,7 @@ app.set('view engine', 'hbs');
 //registro Helper
 registerViteHelper(hbs);
 
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
