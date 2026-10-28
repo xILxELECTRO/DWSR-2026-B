@@ -55,5 +55,11 @@ export default defineConfig([
       'import-x/no-extraneous-dependencies': ['error', { devDependencies: [] }],
     },
   },
+  {
+    files: ['src/**/*.{js,mjs}'],
+    rules: {
+      'no-console': [ 'warn', {allow: ['warn', 'error', 'info'] }],
+    },
+  },
   prettier,
 ]);

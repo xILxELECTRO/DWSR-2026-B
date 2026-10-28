@@ -11,7 +11,7 @@ indexRouter.get('/', (req, res, _next) => {
   counter += 1;
   numbers.push(counter);
   res.render('index', {
-    title: 'Daniel Albertos',
+    title: 'Daniel Alberto',
     counter,
     numbers,
   });
