@@ -12,6 +12,7 @@ import createDebug from 'debug'; //☝️
 //importando bliblioteca de debug
 //Import para crear Dirname
 import { fileURLToPath } from 'node:url';
+// importando la configuracion de winston logger
 
 //Importando el template engine Handlebars
 import hbs from 'hbs';
@@ -19,6 +20,7 @@ import hbs from 'hbs';
 //Importar las rutas de la aplicacion
 import indexRouter from '#routes/index.js';
 import usersRouter from '#routes/users.js';
+import logger from "./lib/winston.js";
 import { registerViteHelper } from './lib/vite.js';
 
 //Creacion del objeto debug
@@ -39,7 +41,7 @@ app.set('view engine', 'hbs');
 //registro Helper
 registerViteHelper(hbs);
 
-app.use(morgan('dev'));
+app.use(morgan('dev'), { stream: { write: (msg) => logger.info(msg.trim()) } });
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
