@@ -19,8 +19,9 @@ plugins: [tailwindcss()],
     server: {
         //Puerto de escucha
         port: 5173,
-        //Rigidez del puerto
-        strict: true,
+        host: '0.0.0.0',
+        //Evita que Vite cambie de puerto si el configurado ya esta ocupado
+        strictPort: true,
     },
     //Configurando el Build
     build:{
