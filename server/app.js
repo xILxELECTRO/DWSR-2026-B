@@ -15,13 +15,15 @@ import { fileURLToPath } from 'node:url';
 // importando la configuracion de winston logger
 
 //Importando el template engine Handlebars
-import hbs from 'hbs';
+//import hbs from 'hbs';
 
 //Importar las rutas de la aplicacion
 import indexRouter from '#routes/index.js';
 import usersRouter from '#routes/users.js';
-import logger from './lib/winston.js';
-import { registerViteHelper } from './lib/vite.js';
+//importando la funcion de configuracion de Hbs
+import configureHandlebars from '#server/lib/handlebars.js';
+import logger from '#server/lib/winston.js';
+//import { registerViteHelper } from './lib/vite.js';
 
 //Creacion del objeto debug
 
@@ -38,8 +40,8 @@ const app = express();
 //Configura el motor de vistas con hbs
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-//registro Helper
-registerViteHelper(hbs);
+//registro Helper de Vite
+configureHandlebars(app);
 
 app.use(
   morgan('dev', {
